@@ -4,16 +4,19 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Point } from 'src/entities/point.entity';
 import { User } from 'src/entities/user.entity';
-import { Users } from './type';
+import { IUsersService, Users } from './type';
+
 
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersService {
     private readonly users = Users;
+
     constructor(
+        //InjectRepository: 注入TypeORM Repository 的裝飾器
         @InjectRepository(User) private readonly userRepository: Repository<User>,
         @InjectRepository(Point) private readonly pointRepository: Repository<Point>,
-    ) { }
+    ) { };
 
     async findOne(username: string): Promise<User | undefined> {
         return this.userRepository.findOne({ where: { username } }); // 使用 TypeORM 查找使用者

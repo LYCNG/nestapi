@@ -1,5 +1,14 @@
 import { User } from "src/entities/user.entity";
 
+
+export interface IUsersService {
+    findOne(username: string): Promise<User | undefined>;
+    findOneTest(username: string): Promise<User | undefined>;
+    createUser(username: string, role: 'admin' | 'user', password: string): Promise<User>;
+    addPoint(userId: string, points: number): Promise<User>;
+    getUserWithPoints(userId: string): Promise<User>;
+}
+
 export const Users: User[] = [
     {
         id: '1',

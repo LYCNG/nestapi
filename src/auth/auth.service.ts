@@ -1,11 +1,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { IUsersService } from 'src/users/type';
+
 
 
 @Injectable()
 export class AuthService {
-    constructor(private usersService: UsersService,
+    constructor(
+        @Inject('UsersServiceMain') private usersService: IUsersService,
         private jwtService: JwtService
     ) { }
 

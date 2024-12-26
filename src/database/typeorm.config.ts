@@ -1,14 +1,21 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
 import { Point } from '../entities/point.entity';
+import { ConfigService } from '@nestjs/config';
 
-export const typeOrmConfig: TypeOrmModuleOptions = {
-    type: 'mysql', // 或 'postgres'
-    host: 'localhost',
-    port: 3306, // 替換為您使用的資料庫埠號
-    username: 'root', // 資料庫帳號
-    password: 'password', // 資料庫密碼
-    database: 'nestjs_db', // 資料庫名稱
+
+// 在資料庫的領域中，ORM 是一種技術，它允許你使用物件導向程式設計(OOP) 的方式來操作資料庫，而不是直接使用 SQL 語句
+
+export const getTypeOrmConfig = (configService: ConfigService): TypeOrmModuleOptions => ({
+    type: 'mysql',  // 或根據需求改為 'postgres'
+    host: configService.get<string>('DATABASE_HOST'),
+    port: configService.get<number>('DATABASE_PORT'),
+    username: configService.get<string>('DATABASE_USER'),
+    password: configService.get<string>('DATABASE_PASSWORD'),
+    database: configService.get<string>('DATABASE_NAME'),
     entities: [User, Point],
-    synchronize: true, // 僅用於開發，生產環境請關閉
-};
+    synchronize: true, // 開發環境使用，生產環境建議關閉
+    // 可選的額外配置
+    logging: true,  // 開發時可以開啟，查看 SQL 查詢
+    timezone: '+08:00',
+});
