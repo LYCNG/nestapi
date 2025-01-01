@@ -21,4 +21,9 @@ export class UserController {
     getUserWithPoints(@Param('id') userId: string) {
         return this.userService.getUserWithPoints(userId);
     }
+
+    @Get('user')
+    getUser() {
+        return [{ id: '123', username: '123' }]
+    }
 }

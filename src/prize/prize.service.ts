@@ -8,11 +8,11 @@ import { Repository } from 'typeorm';
 export class PrizeService {
     constructor(
         @InjectRepository(Prize)
-        private PrizeRepository: Repository<Prize>,
+        private readonly prizeRepository: Repository<Prize>,
     ) { }
 
-
     async findAll(): Promise<Prize[]> {
-        return this.PrizeRepository.find();
+        return this.prizeRepository.find();
     }
+
 }

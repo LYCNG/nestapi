@@ -18,17 +18,18 @@ const enableDatabase = process.env.ENABLE_DATABASE === 'true';
     AuthModule,
     UsersModule,
     JwtConfigModule,
+    LotteryModule,
+    ProductModule,
+    PrizeModule,
     ...(enableDatabase ? [DatabaseModule] : []),
     // DatabaseModule,
     ConfigModule.forRoot({
       //詳細介紹: https://docs.nestjs.com/techniques/configuration
       isGlobal: true,
-      ignoreEnvFile: false,//是否
       envFilePath: '.env',
     }),
-    LotteryModule,
-    ProductModule,
-    PrizeModule],
+
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
